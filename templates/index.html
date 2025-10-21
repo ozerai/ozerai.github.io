@@ -79,6 +79,10 @@
     </script>
     
     <div class="chat-container">
+        
+        <div class="chat-header">
+            Agen Adam Chatbot
+        </div>
 
         <div class="chat-messages" id="chat-messages">
             <div class="initial-message">
@@ -93,7 +97,25 @@
             </div>
         </div>
     </div>
+<footer style="
+    text-align: center; 
+    padding: 20px 0; 
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    font-size: 0.85em;
+    color: #888;">
 
+    <p>&copy; <span id="currentYear"></span> OzerAi Chatbot Solution. All rights reserved.</p>
+    
+    <p style="margin-top: 5px;">
+        Created by SKMA UP 1 92 | Powered by Google Gemini⚡️
+    </p>
+</footer>
+
+<script>
+    // FUNGSI JAVASCRIPT UNTUK MENGAMBIL TAHUN SAAT INI
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
     <script>
         const chatMessages = document.getElementById('chat-messages');
         const userInput = document.getElementById('user-input');
