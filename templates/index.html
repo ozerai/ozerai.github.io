@@ -61,24 +61,18 @@
     
     <script>
         function marked(str) {
-            // 1. Escape karakter HTML
             str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             
-            // 2. KODE KRITIS: EKSTRAKSI DAN PENGGANTIAN GAMBAR
-            // Pola: Mencari 'Gambar:' diikuti oleh NAMA FILE, dan menggantinya dengan tag <img>
-            // Output dari AI: Gambar: Christopher-Street.png
-            // Pola: /Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g
-            // [^<]+? memastikan kita mengambil nama file (non-HTML) hingga ekstensi.
-            str = str.replace(/Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g, '<br><img src="/static/$1" alt="Gambar Properti" loading="lazy"><br>');
-
-
-            // 3. Proses Markdown lainnya
             str = str.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'); 
             str = str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
             str = str.replace(/\*(.*?)\*/g, '<em>$1</em>'); 
             str = str.replace(/\n/g, '<br>'); 
             str = str.replace(/(<br>)*\s*(\*|\-)\s/g, '<br>&#x2022; '); 
             
+            // KODE PERBAIKAN: Regex baru yang menangkap NAMA FILE setelah 'Gambar:' dan mengabaikan path lama yang kompleks.
+            // Output Adam saat ini adalah "Gambar: Christopher-Street.png"
+            str = str.replace(/Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g, '<br><img src="/static/$1" alt="Gambar Properti" loading="lazy"><br>');
+
             return str.trim();
         }
     </script>
@@ -112,7 +106,7 @@
     // FUNGSI JAVASCRIPT UNTUK MENGAMBIL TAHUN SAAT INI
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    const chatMessages = document.getElementById('chat-messages');
+    const chatMessages = document.getElementById('chat-messages');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
 
@@ -123,7 +117,6 @@
         const bubbleElement = document.createElement('div');
         bubbleElement.classList.add('message-bubble');
         
-        // Menggunakan fungsi marked() yang sudah dimodifikasi
         bubbleElement.innerHTML = marked(text);
 
         messageElement.appendChild(bubbleElement);
@@ -152,7 +145,6 @@
             });
 
             const data = await response.json();
-            // Panggil addMessage lagi untuk memproses respons dari Adam
             addMessage('adam', data.response);
 
         } catch (error) {
@@ -174,6 +166,6 @@
     window.onload = function() {
         console.log('Agen Adam siap melayani!');
     };
-</script>
+    </script>
 </body>
 </html>
