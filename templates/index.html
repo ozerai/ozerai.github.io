@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +12,10 @@
 
         /* 1. HTML dan BODY harus mengambil 100% dari ruang. */
         html, body {
-            height: 100%; /* Lebih andal daripada 100vh di mobile */
+            height: 100%; /* More reliable than 100vh on mobile */
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Mencegah scroll body yang aneh */
+            overflow: hidden; /* Prevents strange body scroll */
         }
         
         body { 
@@ -24,13 +24,12 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            /* Hapus min-height dan height: 100vh lama */
         }
 
         .chat-container { 
             width: 100%; 
             max-width: 800px; 
-            height: 100%; /* Mewarisi 100% dari body */
+            height: 100%; /* Inherits 100% from body */
             background-color: white; 
             display: flex; 
             flex-direction: column; 
@@ -106,10 +105,11 @@
             // 1. Escape HTML Characters
             str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             
-            // 2. KODE PERBAIKAN: Regex baru yang menangkap NAMA FILE setelah 'Gambar:' (PASTI BERHASIL)
-            str = str.replace(/Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g, '<br><img src="/static/$1" alt="Gambar Properti" loading="lazy"><br>');
+            // 2. FINAL IMAGE FIX: Regex to catch 'Gambar/Image: FILE_NAME.png' and properly format it
+            // This is the updated Regex (using $2 for the filename)
+            str = str.replace(/(Gambar|Image):\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/gi, '<br><img src="/static/$2" alt="Property Image" loading="lazy"><br>');
 
-            // 3. Proses Markdown lainnya
+            // 3. Process other Markdown
             str = str.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'); 
             str = str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
             str = str.replace(/\*(.*?)\*/g, '<em>$1</em>'); 
@@ -141,12 +141,12 @@
     font-size: 0.85em;
     color: #888;">
 
-    <p>&copy; <span id="currentYear"></span> <a href="https://ozerai.vercel.app" style="color:#888;underline:none;">OzerAi Chatbot</a> created by SKMA UP 1 92 | Powered by Google Gemini⚡@Vercel. All rights reserved.</p>
+    <p>&copy; <span id="currentYear"></span> <a href="https://ozerai.vercel.app" style="color:#888;text-decoration:none;">OzerAi Chatbot</a> created by SKMA UP 1 92 | Powered by Google Gemini⚡@Vercel. All rights reserved.</p>
 </footer>
     </div>
 
 <script>
-    // FUNGSI JAVASCRIPT UNTUK MENGAMBIL TAHUN SAAT INI
+    // JAVASCRIPT FUNCTIONS (ALL ENGLISH)
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
     const chatMessages = document.getElementById('chat-messages');
@@ -192,7 +192,8 @@
 
         } catch (error) {
             console.error('Error:', error);
-            addMessage('adam', 'Waduh, koneksi ke server Adam lagi putus nih. Coba cek lagi ya! 🥲');
+            // Changed error message to English
+            addMessage('adam', 'Oops, Adam\'s server connection is down. Please check again! 🥲');
         } finally {
             sendButton.disabled = false;
             sendButton.textContent = '➤'; 
@@ -207,7 +208,7 @@
     });
 
     window.onload = function() {
-        console.log('Agen Adam siap melayani!');
+        console.log('Agent Adam is ready to serve!');
     };
     </script>
 </body>
