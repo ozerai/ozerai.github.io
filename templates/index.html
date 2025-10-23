@@ -107,7 +107,7 @@
             
             // 2. FINAL IMAGE FIX: Regex to catch 'Gambar/Image: FILE_NAME.png' and properly format it
             // This is the updated Regex (using $2 for the filename)
-            str = str.replace(/(Gambar|Image):\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/gi, '<br><img src="/static/$2" alt="Property Image" loading="lazy"><br>');
+            str = str.replace(/(Gambar|Image):\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/gi, '<br><img src="./static/$2" alt="Property Image" loading="lazy"><br>');
 
             // 3. Process other Markdown
             str = str.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'); 
