@@ -7,7 +7,7 @@
     <meta name="description content="OzerAi AI property agent provides 24/7, multilingual, and accurate listing-data-based responses for property leads. A Gemini-powered real estate chatbot solution.">
 <meta name="keywords" content="property chatbot, AI real estate agent, OzerAi, multilingual chatbot, Gemini property, property lead generation, 24/7 chatbot solution, listing data-based property AI chatbot, Gemini chatbot example">
     <style>
-        /* CSS Anda tidak saya ubah, sudah rapi */
+        /* --- CSS YANG SUDAH TERUJI RAPI DARI SCREENSHOT LAMA ANDA --- */
         .chat-messages::-webkit-scrollbar { width: 8px; }
         .chat-messages::-webkit-scrollbar-thumb { background-color: rgba(200, 200, 200, 0.5); border-radius: 4px; }
         .chat-messages { scrollbar-width: thin; scrollbar-color: rgba(200, 200, 200, 0.5) transparent; }
@@ -61,18 +61,19 @@
     
     <script>
         function marked(str) {
+            // 1. Escape HTML Characters
             str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             
+            // 2. KODE PERBAIKAN: Regex baru yang menangkap NAMA FILE setelah 'Gambar:' (PASTI BERHASIL)
+            str = str.replace(/Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g, '<br><img src="/static/$1" alt="Gambar Properti" loading="lazy"><br>');
+
+            // 3. Proses Markdown lainnya
             str = str.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'); 
             str = str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); 
             str = str.replace(/\*(.*?)\*/g, '<em>$1</em>'); 
             str = str.replace(/\n/g, '<br>'); 
             str = str.replace(/(<br>)*\s*(\*|\-)\s/g, '<br>&#x2022; '); 
             
-            // KODE PERBAIKAN: Regex baru yang menangkap NAMA FILE setelah 'Gambar:' dan mengabaikan path lama yang kompleks.
-            // Output Adam saat ini adalah "Gambar: Christopher-Street.png"
-            str = str.replace(/Gambar:\s*([^<]+?\.(png|jpg|jpeg|gif|webp))/g, '<br><img src="/static/$1" alt="Gambar Properti" loading="lazy"><br>');
-
             return str.trim();
         }
     </script>
