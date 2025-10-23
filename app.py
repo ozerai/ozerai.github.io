@@ -15,6 +15,7 @@ def load_listing_data(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             return f.read()
     except FileNotFoundError:
+        # Internal log message, 100% English
         print(f"ERROR: Property listing data file '{file_path}' not found.")
         return "DATA_NOT_LOADED"
 
@@ -35,7 +36,7 @@ def get_gemini_response(user_input):
     try:
         client = genai.Client(api_key=api_key)
         
-        # System Instruction: THE ULTIMATE LANGUAGE FIX
+        # System Instruction: THE ULTIMATE LANGUAGE FIX (Remains strong and English)
         system_instruction = (
             "***CRITICAL LANGUAGE INSTRUCTION (ABSOLUTE PRIORITY)***: "
             "You **MUST** respond using the **EXACT SAME LANGUAGE** the user is currently using. **NO EXCEPTIONS.** "
@@ -57,6 +58,7 @@ def get_gemini_response(user_input):
             "**IF THE INPUT IS ANOTHER LANGUAGE**: Maintain a friendly, informal tone and use appropriate slang for that culture/language."
             
             "**--- PROPERTY IMAGE RULE ---**"
+            # We keep 'Gambar:' here because this is the format the Gemini response needs to generate for the frontend to parse it.
             "IF the property listing data contains an IMAGE FILE NAME (Example: Christopher-Street.png), you MUST use the format: 'Gambar: FILE_NAME.png' on a separate line at the end of the property description. NEVER output external image URLs."
             
             "Property Data: \n\n" + DATA_LISTING_ADAM
@@ -72,8 +74,13 @@ def get_gemini_response(user_input):
         response = chat.send_message(user_input, config=config)
         return {"response": response.text}
 
+    # PROFESSIONAL ERROR HANDLER (The Final Fix)
     except Exception as e:
-        return {"error": f"Gemini API error occurred: {e}"}
+        # Log the full technical error on the server console (for debugging)
+        print(f"ERROR: Gemini API failure caught. Details: {e}") 
+        
+        # Return a clean, user-friendly error message (100% English) to the client
+        return {"error": "Adam is temporarily offline. The AI server is currently experiencing high load. Please try again in a few moments!"}
 
 # --- 3. FLASK ENDPOINTS (API) ---
 
