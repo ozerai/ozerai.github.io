@@ -59,7 +59,7 @@ def get_gemini_response(user_input):
             
             "**--- PROPERTY IMAGE RULE ---**"
             # We keep 'Gambar:' here because this is the format the Gemini response needs to generate for the frontend to parse it.
-            "IF the property listing data contains an IMAGE FILE NAME (Example: Christopher-Street.png), you MUST use the format: 'Gambar: FILE_NAME.png' on a separate line at the end of the property description. NEVER output external image URLs."
+            "IF the property listing data contains an IMAGE FILE NAME (Example: Christopher-Street.png), you MUST use the format: 'Image: FILE_NAME.png' on a separate line at the end of the property description. NEVER output external image URLs."
             
             "Property Data: \n\n" + DATA_LISTING_ADAM
         )
