@@ -106,14 +106,13 @@ function marked(str) {
     // 1. Escape HTML Characters
     str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     
-    // 2. ULTIMATE IMAGE FIX: Use a function replacer to clean whitespace and use the Full URL Path.
-    // This is the most robust way to ensure the path is correct and the filename is clean.
+    // 2. ULTIMATE IMAGE FIX: Use function replacer to clean whitespace and use the reliable absolute path.
     str = str.replace(/(Gambar|Image):\s*([^<]+?\.(png|jpg|jpeg|gif|webp))(\s*<br>|\s*$)/gi, (match, p1, filename) => {
         // Trim any hidden whitespace from the captured filename
         const cleanFilename = filename.trim(); 
         
-        // Use the Full URL Path to force the browser to find the asset
-        return `<br><img src="https://ozerai.vercel.app/assets/${cleanFilename}" alt="Property Image" loading="lazy"><br>`;
+        // Use the absolute path (/) to the assets folder
+        return `<br><img src="/assets/${cleanFilename}" alt="Property Image" loading="lazy"><br>`;
     });
 
     // 3. Process other Markdown
