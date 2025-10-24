@@ -4,7 +4,7 @@ from google import genai
 from google.genai import types
 
 # --- FLASK INITIALIZATION ---
-app = Flask(__name__, static_url_path='/public', static_folder='public')
+app = Flask(__name__, static_url_path='/assets', static_folder='assets')
 
 # --- 1. PROPERTY DATA (Loading Data from External File) ---
 DATA_FILE = "data_listing.txt"
